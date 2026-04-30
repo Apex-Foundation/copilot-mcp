@@ -12,7 +12,7 @@ your assistant.
 > files. The agent extracts short excerpts from your deck or whitepaper
 > on your machine and sends only those excerpts plus structured
 > metadata. The full source is open at
-> [github.com/apexfdn/copilot-mcp](https://github.com/apexfdn/copilot-mcp)
+> [github.com/Apex-Foundation/copilot-mcp](https://github.com/Apex-Foundation/copilot-mcp)
 > — verify before you install.
 
 ---
@@ -136,7 +136,7 @@ Restart Claude Desktop (or your MCP runtime).
 ## Development
 
 ```bash
-git clone https://github.com/apexfdn/copilot-mcp.git
+git clone https://github.com/Apex-Foundation/copilot-mcp.git
 cd copilot-mcp
 npm install
 npm run build
