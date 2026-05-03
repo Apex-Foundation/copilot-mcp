@@ -14,6 +14,8 @@ import { ApiClient, ApexCopilotApiError, VerifyRequiredError } from './api-clien
 import { MissingTokenError, PACKAGE_VERSION } from './config.js'
 
 import * as score from './tools/score.js'
+import * as portfolioMatch from './tools/portfolio-match.js'
+import * as hackathons from './tools/hackathons.js'
 
 interface ToolModule {
   NAME: string
@@ -24,10 +26,14 @@ interface ToolModule {
 
 /**
  * Tool registry. Add new tools here as endpoints come online server-side:
- *   portfolio-match, fund-match, jurisdiction, twitter-audit,
- *   hackathons, code-review.
+ *   fund-match, jurisdiction, twitter-audit, code-review.
+ *
+ * Verify gate behaviour (server-side, per-route):
+ *   - apex_score:           verify required on EVERY request (verifyAfter: 0)
+ *   - apex_portfolio_match: verify required after 3 requests (default)
+ *   - apex_hackathons:      verify required after 3 requests (default)
  */
-const TOOLS: ReadonlyArray<ToolModule> = [score]
+const TOOLS: ReadonlyArray<ToolModule> = [score, portfolioMatch, hackathons]
 
 export async function runServer(): Promise<void> {
   let client: ApiClient
