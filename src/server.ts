@@ -16,6 +16,7 @@ import { MissingTokenError, PACKAGE_VERSION } from './config.js'
 import * as score from './tools/score.js'
 import * as portfolioMatch from './tools/portfolio-match.js'
 import * as hackathons from './tools/hackathons.js'
+import * as fundMatch from './tools/fund-match.js'
 
 interface ToolModule {
   NAME: string
@@ -26,14 +27,24 @@ interface ToolModule {
 
 /**
  * Tool registry. Add new tools here as endpoints come online server-side:
- *   fund-match, jurisdiction, twitter-audit, code-review.
+ *   jurisdiction, twitter-audit, code-review.
  *
  * Verify gate behaviour (server-side, per-route):
  *   - apex_score:           verify required on EVERY request (verifyAfter: 0)
  *   - apex_portfolio_match: verify required after 3 requests (default)
  *   - apex_hackathons:      verify required after 3 requests (default)
+ *   - apex_fund_match:      verify required after 3 requests (default)
+ *
+ * The 3-call counter is shared across non-score tools — a founder
+ * who calls portfolio_match, hackathons, fund_match in succession
+ * trips the gate on the 4th call regardless of which tool.
  */
-const TOOLS: ReadonlyArray<ToolModule> = [score, portfolioMatch, hackathons]
+const TOOLS: ReadonlyArray<ToolModule> = [
+  score,
+  portfolioMatch,
+  hackathons,
+  fundMatch,
+]
 
 export async function runServer(): Promise<void> {
   let client: ApiClient

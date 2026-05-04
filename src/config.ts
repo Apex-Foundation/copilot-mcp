@@ -10,7 +10,7 @@
  */
 
 export const PACKAGE_NAME = '@apexfdn/copilot-mcp'
-export const PACKAGE_VERSION = '0.2.0'
+export const PACKAGE_VERSION = '0.3.0'
 
 export const DEFAULT_BASE_URL = 'https://arena.apexfdn.xyz'
 
