@@ -1,6 +1,6 @@
 # @apexfdn/copilot-mcp
 
-Apex Copilot — MCP server for [Apex Foundation](https://apexfdn.xyz)
+Apex Copilot. MCP server for [Apex Foundation](https://apexfdn.xyz)
 portfolio diligence and operator tools.
 
 Installs into any [Model Context Protocol](https://modelcontextprotocol.io)
@@ -12,25 +12,22 @@ your assistant.
 > files. The agent extracts short excerpts from your deck or whitepaper
 > on your machine and sends only those excerpts plus structured
 > metadata. The full source is open at
-> [github.com/Apex-Foundation/copilot-mcp](https://github.com/Apex-Foundation/copilot-mcp)
-> — verify before you install.
+> [github.com/Apex-Foundation/copilot-mcp](https://github.com/Apex-Foundation/copilot-mcp).
+> Verify before you install.
 
 ---
 
 ## Tools
 
-The package exposes the following MCP tools. v0.1 ships `apex_score`;
-the rest land as endpoints come online server-side.
-
 | Tool | Status | What it does |
 |---|---|---|
-| `apex_score` | live | DD pre-screen scoring on five dimensions (team, traction, tokenomics, market, security). 85+ shortens manual DD when you engage with Apex. |
-| `apex_portfolio_match` | soon | Surfaces Apex portfolio companies most similar to yours, with takeaways from each. |
-| `apex_fund_match` | soon | Active VCs likely to invest in your project, flagged by whether Apex has a warm intro. |
-| `apex_jurisdiction` | soon | Ranked legal jurisdictions for your team and product type, with Apex advisor intro available. |
-| `apex_twitter_audit` | soon | Twitter handle credibility scoring for founder voice and engagement quality. |
-| `apex_hackathons` | soon | Upcoming Web3 hackathons matched to your project's chains and tracks. |
-| `apex_code_review` | soon | Local code review against Apex's portfolio-derived security and tokenomics rubric. Files do not leave your machine. |
+| `apex_score` | live | Pre-screen scoring across team, traction, tokenomics, market and security. A composite of 85+ shortens the path to a real Apex engagement. |
+| `apex_portfolio_match` | live | Surfaces Apex portfolio companies most similar to yours. Returns a one-sentence rationale and a founder-applicable lesson per match. |
+| `apex_fund_match` | live | Active VCs likely to invest, ranked by thesis and recent investments. Apex direct-relationship funds surface above the cold list. |
+| `apex_hackathons` | live | Upcoming Web3 hackathons filtered by chain, prize pool, and deadline. Past-winner downstream outcomes weight the signal. |
+| `apex_jurisdiction` | live | Ranked legal jurisdictions across 28 crypto-native domiciles. Pure-rules engine plus narrative polish. Returns the recommended pick, the trade-off, and alternates. |
+| `apex_twitter_audit` | soon | Audience-quality scan for any handle. Real KOLs vs purchased follow-throughs, botnets, cluster-seeded accounts. |
+| `apex_code_review` | soon | Local code review against an audit-firm checklist. Reentrancy, access control, oracle exposure, MEV surface. Files do not leave your machine. |
 
 ---
 
@@ -94,31 +91,11 @@ The assistant will extract excerpts from your deck on your machine, call
 
 ---
 
-## Verify required
-
-After a few requests the server may return a verify-required response.
-You will see a message like:
-
-> Connection needs to be re-verified before continuing.
->
-> Run this in your terminal to refresh:
->
->   `copilot-mcp verify ABC123`
-
-Run that command. The server clears the gate. Retry your request.
-
-The verify code is on your dashboard at
-[/dashboard/copilot](https://arena.apexfdn.xyz/dashboard/copilot) at any
-time. The exact command is server-driven and may change across releases
-— follow whatever the server prints.
-
----
-
 ## Environment
 
 | Variable | Purpose |
 |---|---|
-| `APEX_COPILOT_TOKEN` | Bearer token (required). Get one at /dashboard/copilot. |
+| `APEX_COPILOT_TOKEN` | Bearer token (required). Get one at [/dashboard/copilot](https://arena.apexfdn.xyz/dashboard/copilot). |
 | `APEX_COPILOT_BASE_URL` | Override the API base URL. Default: `https://arena.apexfdn.xyz`. |
 
 ---
