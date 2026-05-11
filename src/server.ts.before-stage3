@@ -18,7 +18,6 @@ import * as portfolioMatch from './tools/portfolio-match.js'
 import * as hackathons from './tools/hackathons.js'
 import * as fundMatch from './tools/fund-match.js'
 import * as jurisdiction from './tools/jurisdiction.js'
-import * as twitter from './tools/twitter.js'
 
 interface ToolModule {
   NAME: string
@@ -47,7 +46,6 @@ const TOOLS: ReadonlyArray<ToolModule> = [
   hackathons,
   fundMatch,
   jurisdiction,
-  twitter,
 ]
 
 export async function runServer(): Promise<void> {
