@@ -19,6 +19,7 @@ import * as hackathons from './tools/hackathons.js'
 import * as fundMatch from './tools/fund-match.js'
 import * as jurisdiction from './tools/jurisdiction.js'
 import * as twitter from './tools/twitter.js'
+import * as codeReview from './tools/code-review.js'
 
 interface ToolModule {
   NAME: string
@@ -29,7 +30,7 @@ interface ToolModule {
 
 /**
  * Tool registry. Add new tools here as endpoints come online server-side:
- *   jurisdiction, twitter-audit, code-review.
+ *   (all current tools registered below).
  *
  * Verify gate behaviour (server-side, per-route):
  *   - apex_score:           verify required on EVERY request (verifyAfter: 0)
@@ -48,6 +49,7 @@ const TOOLS: ReadonlyArray<ToolModule> = [
   fundMatch,
   jurisdiction,
   twitter,
+  codeReview,
 ]
 
 export async function runServer(): Promise<void> {
