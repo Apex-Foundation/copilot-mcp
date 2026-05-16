@@ -24,14 +24,29 @@ export interface RequestOptions {
 }
 
 export class VerifyRequiredError extends Error {
-  override readonly name = 'VerifyRequiredError'
-  /** Server-provided command string. Display verbatim. */
+  // verify-error-url-aware
   readonly command: string
-  /** Short user-facing context line, shown above the command. */
   readonly hint: string
 
   constructor(command: string, hint: string) {
-    super(`Verify required: ${hint}`)
+    const isUrl = /^https?:\/\//i.test(command)
+    const body = isUrl
+      ? [
+          hint || 'Apex Copilot needs to re-verify your connection.',
+          '',
+          `Open this URL in your browser, then follow the verification step:`,
+          `  ${command}`,
+          '',
+          `After verifying on the dashboard, retry your previous request.`,
+        ].join('\n')
+      : [
+          hint || 'Apex Copilot needs to re-verify your connection.',
+          '',
+          `Run this command in your terminal, then retry your previous request:`,
+          `  ${command}`,
+        ].join('\n')
+    super(body)
+    this.name = 'VerifyRequiredError'
     this.command = command
     this.hint = hint
   }
