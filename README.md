@@ -355,3 +355,5 @@ Apex Foundation is a Web3 accelerator combining direct investment ($100K to $500
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+<!-- mcp-name: io.github.apex-foundation/copilot-mcp -->
