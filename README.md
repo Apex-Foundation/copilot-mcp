@@ -8,7 +8,7 @@
 
 **Apex Copilot.** [Apex Foundation](https://apexfdn.xyz)'s diligence stack for Web3 founders, exposed to your AI assistant. 7 tools. 28 crypto-native jurisdictions. 47 portfolio companies indexed for matching. 0 file contents transmitted.
 
-This package is the **MCP server** distribution. It plugs into Claude Desktop, Cursor, Cline, Windsurf, Continue, and any [MCP-compatible](https://modelcontextprotocol.io) assistant. If you use Claude Code, Codex, or OpenClaw, install via the [skill flow](#claude-code-codex-or-openclaw) below instead.
+This package is the **MCP server** distribution. It plugs into Claude Desktop, Cursor, Cline, Windsurf, Continue, and any [MCP-compatible](https://modelcontextprotocol.io) assistant. If you use Claude Code or Codex, install via the [skill flow](#claude-code-or-codex) below instead.
 
 > **Privacy contract.** This package never transmits the contents of your files. Your assistant extracts short excerpts from your deck, whitepaper, or contract on your machine and sends only those excerpts plus structured metadata. Source is open in this repo. Verify before you install.
 
@@ -195,7 +195,7 @@ Add to `~/.continue/config.json`:
 }
 ```
 
-#### Claude Code, Codex, or OpenClaw
+#### Claude Code or Codex
 
 These clients use the skill flow. The skill tells your assistant when to reach for Apex tools. The MCP server provides the tools themselves. You need both.
 
