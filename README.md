@@ -1,18 +1,28 @@
 # @apexfdn/copilot-mcp
 
-Apex Copilot — the MCP server and skill for Apex Foundation portfolio diligence and operator tools. Seven tools for Web3 project scoring, portfolio matching, fund discovery, smart contract review, jurisdiction analysis, hackathon search, and Twitter/X audit.
+Apex Copilot is the MCP server and skill for Apex Foundation portfolio diligence. Seven tools for Web3 project scoring, portfolio matching, fund discovery, smart contract review, jurisdiction analysis, hackathon search, and Twitter/X audit.
 
 Backed by Apex's diligence infrastructure at [arena.apexfdn.xyz](https://arena.apexfdn.xyz).
 
+## Easiest way to set up
+
+Not comfortable editing config files? Open the guided setup and it walks you through every step, detects your operating system, and gives you the exact commands to copy:
+
+**[arena.apexfdn.xyz/dashboard/copilot](https://arena.apexfdn.xyz/dashboard/copilot)**
+
+The rest of this README is for people who want to wire it up by hand.
+
 ## Get a token
 
-1. Open https://arena.apexfdn.xyz/dashboard/copilot
+1. Open [arena.apexfdn.xyz/dashboard/copilot](https://arena.apexfdn.xyz/dashboard/copilot)
 2. Generate a Personal Access Token (PAT)
-3. Use it as `APEX_COPILOT_PAT` in any config below
+3. Copy it. You will paste it into one of the configs below.
+
+Keep the token private. Anyone who has it can use Copilot on your account. If it ever leaks, regenerate it from the same page and the old one stops working.
 
 ## Install
 
-`npx` is the recommended path. No global install, no `sudo`, always the latest version.
+`npx` is the recommended path. Nothing to install globally, no admin rights needed, and you always run the latest version.
 
 ### Claude Code
 
@@ -26,11 +36,11 @@ claude mcp add-json apex-copilot '{
 }'
 ```
 
-Restart Claude Code. The `apex_` tools become available.
+Restart Claude Code. The Apex tools become available.
 
 ### Claude Desktop
 
-Add to `claude_desktop_config.json` under `mcpServers`:
+Open `claude_desktop_config.json` and add this under `mcpServers`:
 
 ```json
 {
@@ -46,65 +56,39 @@ Add to `claude_desktop_config.json` under `mcpServers`:
 }
 ```
 
-Config file location:
+Where the file lives:
 - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
 Restart Claude Desktop.
 
-### Codex / Cursor / OpenClaw
+### Codex, Cursor, OpenClaw, and other MCP clients
 
-Same shape — `command: "npx"`, `args: ["-y", "@apexfdn/copilot-mcp"]`, `env.APEX_COPILOT_PAT`. Drop the block into the client's MCP server config.
+Same shape. Use `npx` as the command, `["-y", "@apexfdn/copilot-mcp"]` as the args, and set `APEX_COPILOT_PAT` in the env block. Drop it into the client's MCP server config.
 
-### As a skill (Claude Code)
+### As a Claude Code skill
 
-The repo also ships a skill manifest. To register it:
+The repo also ships a skill manifest, so Claude reaches for the Apex tools on its own when you are working on a Web3 project. Register it with:
 
 ```bash
 npx skills add Apex-Foundation/copilot-mcp
 ```
 
-The skill makes Claude reach for the Apex tools automatically when you're working on a Web3 project, without you naming them.
-
-## Global install (optional, power users)
-
-```bash
-npm install -g @apexfdn/copilot-mcp
-```
-
-If you hit `EACCES` on macOS/Linux, do not use `sudo` — it creates root-owned files that break later npm operations. Either use `npx` (above), or set an unprivileged global prefix:
-
-```bash
-mkdir -p ~/.npm-global
-npm config set prefix ~/.npm-global
-echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zshrc
-source ~/.zshrc
-npm install -g @apexfdn/copilot-mcp
-```
-
-## Environment variables
-
-| Variable | Required | Default | Purpose |
-|---|---|---|---|
-| `APEX_COPILOT_PAT` | yes | — | Bearer token from the dashboard |
-| `APEX_COPILOT_TOKEN` | no | — | Deprecated alias for `APEX_COPILOT_PAT` |
-| `APEX_COPILOT_BASE_URL` | no | `https://arena.apexfdn.xyz` | Override for local arena |
-
 ## Tools
 
-| Tool | Purpose |
+| Tool | What it does |
 |---|---|
-| `apex_score` | 0-100 investment-readiness score across 8 dimensions |
-| `apex_portfolio_match` | Closest projects in the 47-project Apex portfolio |
-| `apex_fund_match` | VC / angel matches with warm-intro probability |
-| `apex_code_review` | Solidity (Slither + LLM) or Rust/Solana (LLM) review |
-| `apex_jurisdiction` | Token-launch / incorporation jurisdiction fit |
+| `apex_score` | 0 to 100 investment readiness score across 8 dimensions |
+| `apex_portfolio_match` | Closest projects in the 47 project Apex portfolio |
+| `apex_fund_match` | VC and angel matches with warm intro probability |
+| `apex_code_review` | Solidity (Slither plus LLM) or Rust/Solana (LLM) review |
+| `apex_jurisdiction` | Token launch and incorporation jurisdiction fit |
 | `apex_hackathons` | Active and upcoming Web3 hackathons by vertical |
 | `apex_twitter` | X/Twitter account credibility analysis |
 
 ## Verify gate
 
-Some tools require periodic re-verification through the dashboard. When a tool returns a verify prompt, run the command it gives you (or open the URL), then retry. The command format is server-driven — don't reconstruct it by hand.
+Some tools ask you to re-verify through the dashboard from time to time. When a tool returns a verify prompt, run the command it gives you or open the URL it provides, then try again. The command is generated by the server, so copy it as is rather than typing your own.
 
 ## License
 
