@@ -1,20 +1,9 @@
 /**
  * Apex Copilot API client.
  *
- * Thin fetch wrapper. Bearer auth via APEX_COPILOT_TOKEN. Translates
- * server errors into typed exceptions:
- *
- *   - VerifyRequiredError on 412 with `error: "verify_required"`. The
- *     server returns a `command` string the founder must run to refresh
- *     their connection, plus a `hint`. The MCP tool wrapper re-emits
- *     both verbatim to the agent. The command FORMAT is server-driven
- *     by design — its shape may evolve and clients must not parse or
- *     reconstruct it.
- *
- *   - ApexCopilotApiError for 401, 429 and other non-2xx.
- *
- * No retries on 412 or 401 (require human action). Soft retry once on
- * 429 / 5xx with a small back-off.
+ * Thin fetch wrapper around the Apex Copilot endpoints. Bearer auth via
+ * APEX_COPILOT_PAT. Translates non-2xx responses into typed exceptions and
+ * applies a soft retry on transient 429 / 5xx with a small back-off.
  */
 
 import { loadConfig, PACKAGE_NAME, PACKAGE_VERSION, type Config } from './config.js'

@@ -2,30 +2,30 @@
 /**
  * MCP smoke test runner.
  *
- * Runs every Apex Copilot tool against the live arena endpoints,
- * happy path + one error case, prints a pass/fail table.
+ * Runs every Apex Copilot tool against the live arena endpoints and
+ * prints a pass/fail table.
  *
- * Assumes the script lives in /var/www/apex-copilot-mcp/ — uses
+ * Assumes the script lives in /var/www/apex-copilot-mcp/ and uses
  * relative imports to the compiled dist/ tools.
  *
  * Requirements:
- *   APEX_COPILOT_TOKEN env var          (your token)
- *   DATABASE_URL env var                (to reset gate between tests)
- *   USER_ID env var                     (your user id for gate reset)
+ *   APEX_COPILOT_PAT env var            (your token)
+ *   DATABASE_URL env var                (test fixture reset)
+ *   USER_ID env var                     (your user id)
  *
  * Usage:
  *   cd /var/www/apex-copilot-mcp
  *   set -a; . /var/www/arena/.env.local; set +a
- *   APEX_COPILOT_TOKEN='...' USER_ID='0318f5ad-...' node mcp-smoke.mjs
+ *   APEX_COPILOT_PAT='...' USER_ID='0318f5ad-...' node mcp-smoke.mjs
  */
 
 import { spawn } from 'node:child_process'
 
-const TOKEN = process.env.APEX_COPILOT_TOKEN
+const TOKEN = process.env.APEX_COPILOT_PAT
 const USER_ID = process.env.USER_ID
 const DATABASE_URL = process.env.DATABASE_URL
 
-if (!TOKEN) { console.error('APEX_COPILOT_TOKEN required'); process.exit(1) }
+if (!TOKEN) { console.error('APEX_COPILOT_PAT required'); process.exit(1) }
 if (!USER_ID) { console.error('USER_ID required'); process.exit(1) }
 if (!DATABASE_URL) { console.error('DATABASE_URL required'); process.exit(1) }
 
