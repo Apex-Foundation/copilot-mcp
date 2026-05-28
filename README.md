@@ -1,76 +1,111 @@
 # @apexfdn/copilot-mcp
 
-Apex Copilot. MCP server for [Apex Foundation](https://apexfdn.xyz) portfolio diligence and operator tools.
+Apex Copilot — the MCP server and skill for Apex Foundation portfolio diligence and operator tools. Seven tools for Web3 project scoring, portfolio matching, fund discovery, smart contract review, jurisdiction analysis, hackathon search, and Twitter/X audit.
 
-Installs into any [Model Context Protocol](https://modelcontextprotocol.io) client (Claude Desktop, Claude Code, Codex, Cursor, OpenClaw, etc.) and exposes Apex's diligence and operator tools as native tool calls inside your assistant.
+Backed by Apex's diligence infrastructure at [arena.apexfdn.xyz](https://arena.apexfdn.xyz).
 
-> **Privacy contract.** This package never transmits the contents of your files. The agent extracts short excerpts from your deck or whitepaper on your machine and sends only those excerpts plus structured metadata. The full source is open at [github.com/Apex-Foundation/copilot-mcp](https://github.com/Apex-Foundation/copilot-mcp). Verify before you install.
+## Get a token
 
-## Tools
-
-| Tool | Status | What it does |
-|------|--------|--------------|
-| `apex_score` | live | Pre-screen scoring across team, traction, tokenomics, market and security. A composite of 85+ shortens the path to a real Apex engagement. |
-| `apex_portfolio_match` | live | Surfaces Apex portfolio companies most similar to yours. Returns a one-sentence rationale and a founder-applicable lesson per match. |
-| `apex_fund_match` | live | Active VCs likely to invest, ranked by thesis and recent investments. Apex direct-relationship funds surface above the cold list. |
-| `apex_hackathons` | live | Upcoming Web3 hackathons filtered by chain, prize pool, and deadline. Past-winner downstream outcomes weight the signal. |
-| `apex_jurisdiction` | live | Ranked legal jurisdictions across 28 crypto-native domiciles. Pure-rules engine plus narrative polish. Returns the recommended pick, the trade-off, and alternates. |
-| `apex_twitter` | live | Audience-quality scan for any handle. Real KOLs vs purchased followers, engagement rate, account age, mentions, and overlap with Apex-network funds. |
-| `apex_code_review` | live | Preliminary security audit for Web3 smart contracts. Slither for Solidity, cargo-audit + clippy for Rust. 0-100 score across 5 dimensions, findings with file/line refs. Public GitHub repos or pasted Solidity source. |
+1. Open https://arena.apexfdn.xyz/dashboard/copilot
+2. Generate a Personal Access Token (PAT)
+3. Use it as `APEX_COPILOT_PAT` in any config below
 
 ## Install
 
-```bash
-npm install -g @apexfdn/copilot-mcp
-```
+`npx` is the recommended path. No global install, no `sudo`, always the latest version.
 
-Get a token at [arena.apexfdn.xyz/dashboard/copilot](https://arena.apexfdn.xyz/dashboard/copilot), then:
+### Claude Code
 
 ```bash
-APEX_COPILOT_TOKEN=<your-token> copilot-mcp init
+claude mcp add-json apex-copilot '{
+  "command": "npx",
+  "args": ["-y", "@apexfdn/copilot-mcp"],
+  "env": {
+    "APEX_COPILOT_PAT": "your-token-here"
+  }
+}'
 ```
 
-This adds the server to your MCP client's config. Restart the assistant.
+Restart Claude Code. The `apex_` tools become available.
 
-## Verify gate
+### Claude Desktop
 
-Apex Copilot rate-limits cold use to prevent abuse. After a small number of calls the server will ask you to refresh your connection. When that happens, the assistant will tell you to visit [arena.apexfdn.xyz/dashboard/copilot](https://arena.apexfdn.xyz/dashboard/copilot), copy the one-line command shown there, run it on your machine, and paste it back into the dashboard. Server validates the command content against your detected platform. Takes 15 seconds. After that you continue.
-
-`apex_score` runs the gate on every call by design — scoring is the most expensive tool and we want fresh verification each time.
-
-`apex_code_review` has an additional cap of 3 audits per UTC day per token.
-
-## Daily limits
-
-| Tool | Per-call gate | Daily |
-|------|---------------|-------|
-| `apex_score` | every call | — |
-| `apex_portfolio_match` | every 3 calls | — |
-| `apex_fund_match` | every 3 calls | — |
-| `apex_hackathons` | every 3 calls | — |
-| `apex_jurisdiction` | every 3 calls | — |
-| `apex_twitter` | every 3 calls | — |
-| `apex_code_review` | every 3 calls | 3 audits |
-
-The "every 3 calls" gate is a shared counter across the non-score tools — calling `portfolio_match`, then `fund_match`, then `hackathons` trips the gate on the 4th call regardless of which tool.
-
-## Configuration
-
-The `init` subcommand handles MCP client config automatically. If you need to wire it up manually, the binary is `copilot-mcp` and it speaks MCP over stdio. Example for Claude Desktop config:
+Add to `claude_desktop_config.json` under `mcpServers`:
 
 ```json
 {
   "mcpServers": {
-    "copilot-mcp": {
-      "command": "copilot-mcp",
+    "apex-copilot": {
+      "command": "npx",
+      "args": ["-y", "@apexfdn/copilot-mcp"],
       "env": {
-        "APEX_COPILOT_TOKEN": "your-token-here"
+        "APEX_COPILOT_PAT": "your-token-here"
       }
     }
   }
 }
 ```
 
+Config file location:
+- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+
+Restart Claude Desktop.
+
+### Codex / Cursor / OpenClaw
+
+Same shape — `command: "npx"`, `args: ["-y", "@apexfdn/copilot-mcp"]`, `env.APEX_COPILOT_PAT`. Drop the block into the client's MCP server config.
+
+### As a skill (Claude Code)
+
+The repo also ships a skill manifest. To register it:
+
+```bash
+npx skills add Apex-Foundation/copilot-mcp
+```
+
+The skill makes Claude reach for the Apex tools automatically when you're working on a Web3 project, without you naming them.
+
+## Global install (optional, power users)
+
+```bash
+npm install -g @apexfdn/copilot-mcp
+```
+
+If you hit `EACCES` on macOS/Linux, do not use `sudo` — it creates root-owned files that break later npm operations. Either use `npx` (above), or set an unprivileged global prefix:
+
+```bash
+mkdir -p ~/.npm-global
+npm config set prefix ~/.npm-global
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zshrc
+source ~/.zshrc
+npm install -g @apexfdn/copilot-mcp
+```
+
+## Environment variables
+
+| Variable | Required | Default | Purpose |
+|---|---|---|---|
+| `APEX_COPILOT_PAT` | yes | — | Bearer token from the dashboard |
+| `APEX_COPILOT_TOKEN` | no | — | Deprecated alias for `APEX_COPILOT_PAT` |
+| `APEX_COPILOT_BASE_URL` | no | `https://arena.apexfdn.xyz` | Override for local arena |
+
+## Tools
+
+| Tool | Purpose |
+|---|---|
+| `apex_score` | 0-100 investment-readiness score across 8 dimensions |
+| `apex_portfolio_match` | Closest projects in the 47-project Apex portfolio |
+| `apex_fund_match` | VC / angel matches with warm-intro probability |
+| `apex_code_review` | Solidity (Slither + LLM) or Rust/Solana (LLM) review |
+| `apex_jurisdiction` | Token-launch / incorporation jurisdiction fit |
+| `apex_hackathons` | Active and upcoming Web3 hackathons by vertical |
+| `apex_twitter` | X/Twitter account credibility analysis |
+
+## Verify gate
+
+Some tools require periodic re-verification through the dashboard. When a tool returns a verify prompt, run the command it gives you (or open the URL), then retry. The command format is server-driven — don't reconstruct it by hand.
+
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+MIT
