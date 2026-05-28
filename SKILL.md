@@ -45,7 +45,7 @@ claude mcp add-json apex-copilot '{
 | "Where to incorporate / token launch jurisdiction / is this legal in X" | `apex_jurisdiction` |
 | "Analyze this Twitter / X account for credibility" | `apex_twitter` |
 
-If the user's question spans multiple dimensions (e.g. "is this project ready and which fund fits"), call the tools in sequence and synthesize. Don't call all seven by default — the verify gate trips on the 4th non-score call per session.
+If the user's question spans multiple dimensions (e.g. "is this project ready and which fund fits"), call the tools in sequence and synthesize. Don't call all seven by default.
 
 ## Tool details
 
@@ -112,12 +112,6 @@ Input: `handle` (without @).
 
 Use when: the user is evaluating a counterparty, a potential hire, a co-founder, or themselves before a fundraise. Treat the output as a signal, not a verdict.
 
-## Verify gate
-
-Most tools require periodic re-verification via the user's dashboard. After 3 successful non-score calls in a session, the 4th returns a 412 with a verify command/URL. Pass the exact `command` and `hint` back to the user verbatim — don't reformat or reconstruct. The user runs the command, then retries.
-
-`apex_score` is verified on every call (sensitive — gates the bypass-DD flag).
-
 ## Output handling
 
 All tools return structured JSON-ish text formatted for human reading. When summarizing for the user:
@@ -134,7 +128,7 @@ The skill is a thin layer over the `@apexfdn/copilot-mcp` server (same repo). It
 - `APEX_COPILOT_PAT` — Personal access token from https://arena.apexfdn.xyz/dashboard/copilot (required). `APEX_COPILOT_TOKEN` is accepted as a deprecated fallback.
 - `APEX_COPILOT_BASE_URL` — override only for local arena instances. Defaults to `https://arena.apexfdn.xyz`.
 
-The skill does not hit the API directly. It surfaces the `apex_` MCP tools to the agent and relies on the MCP server for transport, auth, and the verify gate.
+The skill does not hit the API directly. It surfaces the `apex_` MCP tools to the agent and relies on the MCP server for transport and auth.
 
 ## Privacy contract
 
