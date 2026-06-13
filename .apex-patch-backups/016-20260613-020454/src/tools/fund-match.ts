@@ -94,32 +94,6 @@ export const inputShape = {
     .describe('Max number of fund matches to return (1-10, default 5).'),
 }
 
-export const TITLE = 'Apex Fund Match'
-
-export const OUTPUT_SHAPE = {
-  ok: z.boolean(),
-  funds: z
-    .array(
-      z.object({
-        name: z.string(),
-        thesis: z.string(),
-        recentInvestments: z.array(z.string()).optional(),
-        fitScore: z.number().min(0).max(1),
-        warmIntroAvailable: z.boolean(),
-      })
-    )
-    .describe('Ranked funds matching the project, best fit first.'),
-  summary: z.string().optional(),
-}
-
-export const ANNOTATIONS = {
-  title: 'Apex Fund Match',
-  readOnlyHint: true,
-  destructiveHint: false,
-  idempotentHint: true,
-  openWorldHint: true,
-}
-
 const Input = z.object(inputShape)
 
 interface FundMatch {

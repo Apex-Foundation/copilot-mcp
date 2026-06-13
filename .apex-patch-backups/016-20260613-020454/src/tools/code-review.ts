@@ -85,48 +85,6 @@ export const inputShape = {
     ),
 }
 
-export const TITLE = 'Apex Code Review'
-
-export const OUTPUT_SHAPE = {
-  ok: z.boolean(),
-  auditId: z.string().optional(),
-  score: z
-    .number()
-    .int()
-    .min(0)
-    .max(100)
-    .optional()
-    .describe('Overall security score 0-100.'),
-  findings: z
-    .array(
-      z.object({
-        severity: z.enum([
-          'critical',
-          'high',
-          'medium',
-          'low',
-          'informational',
-        ]),
-        file: z.string().optional(),
-        line: z.number().int().optional(),
-        category: z.string().optional(),
-        message: z.string(),
-        recommendation: z.string().optional(),
-      })
-    )
-    .optional()
-    .describe('Security findings discovered in the audit.'),
-  summary: z.string().optional(),
-}
-
-export const ANNOTATIONS = {
-  title: 'Apex Code Review',
-  readOnlyHint: false,
-  destructiveHint: false,
-  idempotentHint: false,
-  openWorldHint: true,
-}
-
 const Input = z
   .object(inputShape)
   .refine(

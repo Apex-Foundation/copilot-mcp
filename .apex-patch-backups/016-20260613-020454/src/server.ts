@@ -4,12 +4,6 @@
  * stdio transport. Registers tool handlers, marshals errors into
  * agent-friendly text. Started by `copilot-mcp` (no args) which is
  * what Claude Desktop / Claude Code / Codex etc. invoke.
- *
- * v0.9.0: each tool module now exports TITLE, OUTPUT_SHAPE, and
- * ANNOTATIONS in addition to NAME/DESCRIPTION/inputShape/handler.
- * Those are propagated into registerTool so clients see rich metadata
- * (output schemas, behaviour hints, display names) — matches what
- * the HTTP MCP route already exposes at arena.apexfdn.xyz.
  */
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
@@ -27,24 +21,10 @@ import * as jurisdiction from './tools/jurisdiction.js'
 import * as twitter from './tools/twitter.js'
 import * as codeReview from './tools/code-review.js'
 
-interface ToolAnnotations {
-  title?: string
-  readOnlyHint?: boolean
-  destructiveHint?: boolean
-  idempotentHint?: boolean
-  openWorldHint?: boolean
-}
-
 interface ToolModule {
   NAME: string
-  /** Human-readable display name shown in tool pickers. */
-  TITLE?: string
   DESCRIPTION: string
   inputShape: z.ZodRawShape
-  /** Optional ZodRawShape describing the structured return shape. */
-  OUTPUT_SHAPE?: z.ZodRawShape
-  /** Optional MCP behaviour hints: readOnly, destructive, idempotent, openWorld. */
-  ANNOTATIONS?: ToolAnnotations
   handler: (input: unknown, client: ApiClient) => Promise<string>
 }
 
@@ -93,11 +73,8 @@ export async function runServer(): Promise<void> {
     server.registerTool(
       tool.NAME,
       {
-        ...(tool.TITLE ? { title: tool.TITLE } : {}),
         description: tool.DESCRIPTION,
         inputSchema: tool.inputShape,
-        ...(tool.OUTPUT_SHAPE ? { outputSchema: tool.OUTPUT_SHAPE } : {}),
-        ...(tool.ANNOTATIONS ? { annotations: tool.ANNOTATIONS } : {}),
       },
       async (input: unknown) => {
         try {

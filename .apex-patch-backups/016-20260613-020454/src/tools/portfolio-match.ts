@@ -68,40 +68,6 @@ export const inputShape = {
     .describe('Max number of matches to return (1-10, default 5).'),
 }
 
-export const TITLE = 'Apex Portfolio Match'
-
-export const OUTPUT_SHAPE = {
-  ok: z.boolean(),
-  matches: z
-    .array(
-      z.object({
-        project: z.object({
-          name: z.string(),
-          category: z.string().optional(),
-        }),
-        similarity: z.number().min(0).max(1).describe('Cosine similarity 0-1.'),
-        whyMatch: z.string().describe('One-sentence rationale.'),
-        shortLesson: z
-          .string()
-          .nullable()
-          .describe('Founder-applicable lesson learned from this portfolio company.'),
-        contactAvailable: z
-          .boolean()
-          .describe('True if Apex can facilitate an intro to this founder.'),
-      })
-    )
-    .describe('Top portfolio matches, ranked by similarity descending.'),
-  summary: z.string(),
-}
-
-export const ANNOTATIONS = {
-  title: 'Apex Portfolio Match',
-  readOnlyHint: true,
-  destructiveHint: false,
-  idempotentHint: true,
-  openWorldHint: false,
-}
-
 const Input = z.object(inputShape)
 
 interface PortfolioMatch {

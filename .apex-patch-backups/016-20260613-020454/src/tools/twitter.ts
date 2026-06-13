@@ -55,31 +55,6 @@ export const inputShape = {
     ),
 }
 
-export const TITLE = 'Apex Twitter Audit'
-
-export const OUTPUT_SHAPE = {
-  ok: z.boolean(),
-  handle: z.string(),
-  followerCount: z.number().int().optional(),
-  audienceQuality: z
-    .enum(['high', 'medium', 'low', 'suspicious'])
-    .optional(),
-  realFollowerPercent: z.number().min(0).max(100).optional(),
-  engagementRate: z.number().optional(),
-  notableMentions: z.array(z.string()).optional(),
-  apexNetworkOverlap: z
-    .array(z.object({ name: z.string(), role: z.string() }))
-    .optional(),
-}
-
-export const ANNOTATIONS = {
-  title: 'Apex Twitter Audit',
-  readOnlyHint: true,
-  destructiveHint: false,
-  idempotentHint: true,
-  openWorldHint: true,
-}
-
 const Input = z.object(inputShape)
 
 interface TwitterDim {

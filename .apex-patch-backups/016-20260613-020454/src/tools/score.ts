@@ -63,42 +63,6 @@ export const inputShape = {
     .describe('File summaries (up to 20). Names + sizes + short excerpts only — no full contents.'),
 }
 
-export const TITLE = 'Apex Score'
-
-export const OUTPUT_SHAPE = {
-  ok: z.boolean().describe('True if scoring completed successfully.'),
-  scoreOverall: z
-    .number()
-    .int()
-    .min(0)
-    .max(100)
-    .optional()
-    .describe('Composite 0-100 score across all dimensions.'),
-  breakdown: z
-    .object({
-      team: z.number().int().min(0).max(100),
-      traction: z.number().int().min(0).max(100),
-      tokenomics: z.number().int().min(0).max(100),
-      market: z.number().int().min(0).max(100),
-      security: z.number().int().min(0).max(100),
-    })
-    .optional()
-    .describe('Sub-scores by dimension, each 0-100.'),
-  summary: z.string().optional().describe('Short narrative summary.'),
-  recommendations: z
-    .array(z.string())
-    .optional()
-    .describe('Actionable steps to improve the score or de-risk the project.'),
-}
-
-export const ANNOTATIONS = {
-  title: 'Apex Score',
-  readOnlyHint: true,
-  destructiveHint: false,
-  idempotentHint: true,
-  openWorldHint: false,
-}
-
 const Input = z.object(inputShape)
 
 interface ScoreResponse {

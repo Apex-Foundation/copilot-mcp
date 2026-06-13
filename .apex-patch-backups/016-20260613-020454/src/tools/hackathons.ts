@@ -83,30 +83,6 @@ export const inputShape = {
     ),
 }
 
-export const TITLE = 'Apex Hackathons'
-
-export const OUTPUT_SHAPE = {
-  ok: z.boolean(),
-  hackathons: z.array(
-    z.object({
-      name: z.string(),
-      startDate: z.string().optional(),
-      endDate: z.string().optional(),
-      prizePool: z.number().int().optional(),
-      chains: z.array(z.string()).optional(),
-      registrationUrl: z.string().optional(),
-    })
-  ),
-}
-
-export const ANNOTATIONS = {
-  title: 'Apex Hackathons',
-  readOnlyHint: true,
-  destructiveHint: false,
-  idempotentHint: true,
-  openWorldHint: true,
-}
-
 const Input = z.object(inputShape)
 
 interface HackathonMatch {

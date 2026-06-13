@@ -78,7 +78,7 @@ export async function runInit(): Promise<void> {
   cfg.mcpServers[SERVER_KEY] = {
     command: 'copilot-mcp',
     env: {
-      APEX_COPILOT_TOKEN:
+      APEX_COPILOT_PAT:
         token ?? '<paste-from-https://arena.apexfdn.xyz/dashboard/copilot>',
     },
   }

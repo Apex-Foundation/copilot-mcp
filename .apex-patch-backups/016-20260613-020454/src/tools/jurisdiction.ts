@@ -106,33 +106,6 @@ export const inputShape = {
     ),
 }
 
-export const TITLE = 'Apex Jurisdiction'
-
-export const OUTPUT_SHAPE = {
-  ok: z.boolean(),
-  rankings: z
-    .array(
-      z.object({
-        jurisdiction: z.string(),
-        score: z.number().min(0).max(100),
-        pros: z.array(z.string()).optional(),
-        cons: z.array(z.string()).optional(),
-        setupCost: z.string().optional(),
-        setupTime: z.string().optional(),
-      })
-    )
-    .describe('Ranked jurisdictions, best fit first.'),
-  narrative: z.string().optional().describe('Short narrative analysis.'),
-}
-
-export const ANNOTATIONS = {
-  title: 'Apex Jurisdiction',
-  readOnlyHint: true,
-  destructiveHint: false,
-  idempotentHint: true,
-  openWorldHint: false,
-}
-
 const Input = z.object(inputShape)
 
 interface JurisdictionResult {

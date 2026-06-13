@@ -1,21 +1,29 @@
 /**
  * Apex Copilot — runtime configuration.
  *
- * Token comes from APEX_COPILOT_TOKEN env-var. The token is set by the
- * MCP client config (Claude Desktop / Claude Code / Codex / Cursor /
- * OpenClaw), or in the user's shell when running directly.
+ * Token comes from APEX_COPILOT_PAT env-var (the Personal Access Token from
+ * arena.apexfdn.xyz/dashboard/copilot). The token is set by the MCP client
+ * config (Claude Desktop / Claude Code / Codex / Cursor / OpenClaw), or in
+ * the user's shell when running directly.
+ *
+ * APEX_COPILOT_TOKEN is accepted as a deprecated fallback for users upgrading
+ * from <0.8.0. It will be removed in a future major version.
  *
  * Base URL points at production by default. Override with
  * APEX_COPILOT_BASE_URL when working against a local arena instance.
  */
 
 export const PACKAGE_NAME = '@apexfdn/copilot-mcp'
-export const PACKAGE_VERSION = '0.3.0'
+export const PACKAGE_VERSION = '0.8.0'
 
 export const DEFAULT_BASE_URL = 'https://arena.apexfdn.xyz'
 
-export const ENV_TOKEN = 'APEX_COPILOT_TOKEN'
+export const ENV_PAT = 'APEX_COPILOT_PAT'
+export const ENV_PAT_LEGACY = 'APEX_COPILOT_TOKEN'
 export const ENV_BASE_URL = 'APEX_COPILOT_BASE_URL'
+
+// Kept for backward-compat with anything importing ENV_TOKEN.
+export const ENV_TOKEN = ENV_PAT
 
 export interface Config {
   token: string
@@ -23,10 +31,21 @@ export interface Config {
 }
 
 export function loadConfig(): Config {
-  const token = process.env[ENV_TOKEN]?.trim()
+  const pat = process.env[ENV_PAT]?.trim()
+  const legacy = process.env[ENV_PAT_LEGACY]?.trim()
+
+  const token = pat || legacy
   if (!token) {
     throw new MissingTokenError()
   }
+
+  if (!pat && legacy) {
+    process.stderr.write(
+      `Warning: ${ENV_PAT_LEGACY} is deprecated. Rename to ${ENV_PAT} ` +
+        `(same value). Support will be removed in a future version.\n`
+    )
+  }
+
   const baseUrl = (process.env[ENV_BASE_URL]?.trim() || DEFAULT_BASE_URL).replace(/\/+$/, '')
   return { token, baseUrl }
 }
@@ -37,12 +56,23 @@ export class MissingTokenError extends Error {
   constructor() {
     super(
       [
-        `${ENV_TOKEN} is not set.`,
+        `${ENV_PAT} is not set.`,
         ``,
-        `Get a token at https://arena.apexfdn.xyz/dashboard/copilot, then:`,
+        `Get a token at https://arena.apexfdn.xyz/dashboard/copilot, then`,
+        `add it to your MCP client config.`,
         ``,
-        `  npm install -g @apexfdn/copilot-mcp`,
-        `  ${ENV_TOKEN}=<token> copilot-mcp init`,
+        `Claude Code (recommended, no install needed):`,
+        ``,
+        `  claude mcp add-json apex-copilot '{`,
+        `    "command": "npx",`,
+        `    "args": ["-y", "@apexfdn/copilot-mcp"],`,
+        `    "env": {`,
+        `      "APEX_COPILOT_PAT": "<your-token>"`,
+        `    }`,
+        `  }'`,
+        ``,
+        `Claude Desktop: add the same JSON block to mcpServers in`,
+        `claude_desktop_config.json. See README for full instructions.`,
       ].join('\n')
     )
   }

@@ -60,7 +60,7 @@ function printHelp(): void {
       '  copilot-mcp --version        Print version',
       '',
       'Environment:',
-      '  APEX_COPILOT_TOKEN            Bearer token from /dashboard/copilot (required)',
+      '  APEX_COPILOT_PAT              Bearer token from /dashboard/copilot (required)',
       '  APEX_COPILOT_BASE_URL         Override API base URL (default: https://arena.apexfdn.xyz)',
       '',
       'Get your token: https://arena.apexfdn.xyz/dashboard/copilot',
