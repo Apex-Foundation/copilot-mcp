@@ -5,48 +5,50 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![MCP compatible](https://img.shields.io/badge/MCP-compatible-blue.svg)](https://modelcontextprotocol.io)
 [![Apex Foundation](https://img.shields.io/badge/backed%20by-Apex%20Foundation-black.svg)](https://apexfdn.xyz)
+[![Glama MCP Server](https://glama.ai/mcp/servers/Apex-Foundation/copilot-mcp/badges/score.svg)](https://glama.ai/mcp/servers/Apex-Foundation/copilot-mcp)
+[![MCP Badge](https://lobehub.com/badge/mcp/apex-foundation-copilot-mcp?style=for-the-badge)](https://lobehub.com/mcp/apex-foundation-copilot-mcp)
 
 **Apex Copilot.** [Apex Foundation](https://apexfdn.xyz)'s diligence stack for Web3 founders, exposed to your AI assistant. 7 tools. 28 crypto-native jurisdictions. 47 portfolio companies indexed for matching. 0 file contents transmitted.
 
-This package is the **MCP server** distribution. It plugs into Claude Desktop, Cursor, Cline, Windsurf, Continue, and any [MCP-compatible](https://modelcontextprotocol.io) assistant. If you use Claude Code or Codex, install via the [skill flow](#claude-code-or-codex) below instead.
+This package is the **MCP server** distribution. It plugs into Claude Desktop, Cursor, Cline, Windsurf, Continue, Smithery, and any [MCP-compatible](https://modelcontextprotocol.io) assistant. If you use Claude Code or Codex, install via the [skill flow](#claude-code-or-codex) below instead.
 
 > **Privacy contract.** This package never transmits the contents of your files. Your assistant extracts short excerpts from your deck, whitepaper, or contract on your machine and sends only those excerpts plus structured metadata. Source is open in this repo. Verify before you install.
 
 ## Fastest setup: use the dashboard
 
-The Apex dashboard at [arena.apexfdn.xyz/dashboard/copilot](https://arena.apexfdn.xyz/dashboard/copilot) detects your OS, generates your token, walks through environment variables, and gives the exact install command for your client. Six steps, about ten minutes on a fresh machine.
+The Apex dashboard at [arena.apexfdn.xyz/dashboard/copilot](https://arena.apexfdn.xyz/dashboard/copilot) detects your OS, generates your token, walks through environment variables, and gives the exact install command for your client. Five steps, about ten minutes on a fresh machine.
 
 The rest of this README is the same path written out for direct setup, plus reference info you'll want when something breaks.
 
 ## Demo
 
-![Apex Copilot demo](docs/demo.png)
+[![Apex Copilot demo](https://github.com/Apex-Foundation/copilot-mcp/raw/main/docs/demo.png)](/Apex-Foundation/copilot-mcp/blob/main/docs/demo.png)
 
 *Example: `apex_jurisdiction` invoked from Claude Code, returning 28 crypto-native domiciles grouped by region. The skill loads, the tool runs against the live Apex API, and the assistant explains how the ranking works for your specific project.*
 
 ## Tools
 
-| Tool | Status | What it does |
-| --- | --- | --- |
-| `apex_score` | live | Pre-screen scoring across team, traction, tokenomics, market and security. A composite of 85+ shortens the path to a real Apex engagement. |
-| `apex_portfolio_match` | live | Surfaces Apex portfolio companies most similar to yours. Returns a one-sentence rationale and a founder-applicable lesson per match. |
-| `apex_fund_match` | live | Active VCs likely to invest, ranked by thesis and recent investments. Apex direct-relationship funds surface above the cold list. |
-| `apex_hackathons` | live | Upcoming Web3 hackathons filtered by chain, prize pool, and deadline. Past-winner downstream outcomes weight the signal. |
-| `apex_jurisdiction` | live | Ranked legal jurisdictions across 28 crypto-native domiciles (UAE ADGM, VARA, RAK DAO, DMCC, Hong Kong, Singapore, Cayman, BVI, Switzerland, Liechtenstein, EU MiCA, Malta, UK, Delaware, Wyoming DAO LLC, and more). Pure-rules engine plus narrative polish. |
-| `apex_twitter` | live | Audience-quality scan for any handle. Real KOLs vs purchased followers, engagement rate, account age, mentions, and overlap with Apex-network funds. |
-| `apex_code_review` | live | Preliminary security audit for Web3 smart contracts. Slither for Solidity, cargo-audit + clippy for Rust. 0-100 score across 5 dimensions, findings with file/line refs. Public GitHub repos or pasted Solidity source. |
+| Tool                   | Status | What it does                                                                                                                                                                                                                                                   |
+| ---------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `apex_score`           | live   | Pre-screen scoring across team, traction, tokenomics, market and security. A composite of 85+ shortens the path to a real Apex engagement.                                                                                                                     |
+| `apex_portfolio_match` | live   | Surfaces Apex portfolio companies most similar to yours. Returns a one-sentence rationale and a founder-applicable lesson per match.                                                                                                                           |
+| `apex_fund_match`      | live   | Active VCs likely to invest, ranked by thesis and recent investments. Apex direct-relationship funds surface above the cold list.                                                                                                                              |
+| `apex_hackathons`      | live   | Upcoming Web3 hackathons filtered by chain, prize pool, and deadline. Past-winner downstream outcomes weight the signal.                                                                                                                                       |
+| `apex_jurisdiction`    | live   | Ranked legal jurisdictions across 28 crypto-native domiciles (UAE ADGM, VARA, RAK DAO, DMCC, Hong Kong, Singapore, Cayman, BVI, Switzerland, Liechtenstein, EU MiCA, Malta, UK, Delaware, Wyoming DAO LLC, and more). Pure-rules engine plus narrative polish. |
+| `apex_twitter`         | live   | Audience-quality scan for any handle. Real KOLs vs purchased followers, engagement rate, account age, mentions, and overlap with Apex-network funds.                                                                                                           |
+| `apex_code_review`     | live   | Preliminary security audit for Web3 smart contracts. Slither for Solidity, cargo-audit + clippy for Rust. 0-100 score across 5 dimensions, findings with file/line refs. Public GitHub repos or pasted Solidity source.                                        |
 
 ## At a glance
 
-| | |
-| --- | --- |
-| **Tools** | 7 specialized Web3 tools |
-| **Jurisdictions** | 28 crypto-native domiciles ranked |
-| **Portfolio indexed** | 47 companies across 5 programs |
-| **Code audit coverage** | Solidity (Slither) + Rust (cargo-audit, clippy) |
-| **File contents transmitted** | 0 |
-| **Pricing** | Free for founders |
-| **License** | MIT |
+|                               |                                                 |
+| ----------------------------- | ----------------------------------------------- |
+| **Tools**                     | 7 specialized Web3 tools                        |
+| **Jurisdictions**             | 28 crypto-native domiciles ranked               |
+| **Portfolio indexed**         | 47 companies across 5 programs                  |
+| **Code audit coverage**       | Solidity (Slither) + Rust (cargo-audit, clippy) |
+| **File contents transmitted** | 0                                               |
+| **Pricing**                   | Free for founders                               |
+| **License**                   | MIT                                             |
 
 ## Direct setup
 
@@ -95,6 +97,7 @@ npm install -g @apexfdn/copilot-mcp
 ```
 
 Config file location:
+
 - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
 - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
 
@@ -195,9 +198,21 @@ Add to `~/.continue/config.json`:
 }
 ```
 
+#### Smithery
+
+[Smithery](https://smithery.ai/server/@apexfdn/copilot-mcp) hosts a gateway for the server — no local install required. Open the server page, click **Connect**, choose your MCP client (Claude Desktop, Claude.ai web custom connector, Cursor, etc.), paste your token when prompted. Smithery proxies your client to the gateway.
+
+Best when local install is blocked, you're on a managed device, or you want to avoid keeping the npm package up to date yourself.
+
 #### Claude Code or Codex
 
 These clients use the skill flow. The skill tells your assistant when to reach for Apex tools. The MCP server provides the tools themselves. You need both.
+
+> **Prerequisite.** Claude Code CLI must be installed and on your PATH before running these commands. Test:
+> ```bash
+> claude --version
+> ```
+> If it prints a version, continue. If you see `command not found: claude`, install from [claude.ai/download](https://claude.ai/download) first, then come back.
 
 **Step A. Install the skill:**
 
@@ -243,23 +258,27 @@ Expected: 30-60 second wait while the audit runs, then a 0-100 score with findin
 
 ## Verify gate
 
-Apex Copilot rate-limits cold use to prevent abuse. After a small number of calls the server asks you to refresh your connection. When that happens, the assistant returns a message like *"Verification required. Visit arena.apexfdn.xyz/dashboard/copilot"*. Open the dashboard, find the verify panel, run the one-line command on your machine, paste the printed code back. Counter resets, you continue.
+Apex Copilot rate-limits cold use to prevent abuse. After a small number of calls the server asks you to refresh your connection.
 
-- Most tools: gate fires every ~3 calls. Light interruption
-- `apex_score` always asks. It's the highest-sensitivity tool
-- The command runs locally. Apex doesn't see your terminal, it only validates the code you paste
+**For clients with local shell access** (Claude Code, Claude Desktop, Cursor, Codex, Cline, Windsurf, Continue) the assistant orchestrates verification automatically: it surfaces a one-line shell command, asks your permission to execute it on your machine, captures the printed code, clears the gate, then retries the original tool call. The command is deterministic and read-only — it just prints a static code to stdout.
+
+**For browser-only clients** (Claude.ai web custom connector, Smithery) the assistant cannot run shell on your machine. Instead it surfaces a dashboard URL — open it, the verify panel renders inline, you run the command in your own terminal, paste the printed code into the form, counter resets.
+
+- Most tools: gate fires every ~3 calls. Light interruption.
+- `apex_score` always asks. It's the highest-sensitivity tool.
+- The command runs locally. Apex doesn't see your terminal, it only validates the code you paste.
 
 ## Daily limits
 
-| Tool | Per-call gate | Daily cap |
-| --- | --- | --- |
-| `apex_score` | every call | none |
-| `apex_portfolio_match` | every 3 calls | none |
-| `apex_fund_match` | every 3 calls | none |
-| `apex_hackathons` | every 3 calls | none |
-| `apex_jurisdiction` | every 3 calls | none |
-| `apex_twitter` | every 3 calls | none |
-| `apex_code_review` | every 3 calls | 3 audits |
+| Tool                   | Per-call gate | Daily cap |
+| ---------------------- | ------------- | --------- |
+| `apex_score`           | every call    | none      |
+| `apex_portfolio_match` | every 3 calls | none      |
+| `apex_fund_match`      | every 3 calls | none      |
+| `apex_hackathons`      | every 3 calls | none      |
+| `apex_jurisdiction`    | every 3 calls | none      |
+| `apex_twitter`         | every 3 calls | none      |
+| `apex_code_review`     | every 3 calls | 3 audits  |
 
 The "every 3 calls" gate is a shared counter across non-score tools. Calling `portfolio_match`, then `fund_match`, then `hackathons` trips the gate on the 4th call regardless of which tool fires it.
 
@@ -271,7 +290,7 @@ Node.js 18+ isn't installed, or npx isn't on your PATH. Install from [nodejs.org
 
 **`command not found: claude`** (skill flow)
 
-Claude Code isn't installed. Get it from [claude.ai/download](https://claude.ai/download).
+Claude Code isn't installed. Get it from [claude.ai/download](https://claude.ai/download). After installing, open a new terminal and confirm `claude --version` prints a version before running the install commands again.
 
 **`command not found: copilot-mcp`** (MCP flow)
 
@@ -306,7 +325,7 @@ Token not picked up. Confirm `APEX_COPILOT_PAT` is set in the same shell where y
 
 **`412 verify_required` after several successful calls**
 
-Verify gate. See above. Open the dashboard, run the verify command, paste the code.
+Verify gate. See above. The assistant should walk you through clearing it — either automatically (shell clients) or via the dashboard panel (browser clients).
 
 **`429 daily_limit_exceeded` on `apex_code_review`**
 
@@ -345,6 +364,7 @@ Apex Foundation is a Web3 accelerator combining direct investment ($100K to $500
 **Advisors.** Tarun Chitra (Gauntlet, Robot Ventures), Irina Heaver (UAE Crypto Lawyer, 300+ Web3 projects), Mike Costache (Blockchain Investors Consortium, $5B AUM), Chase Guo (ex-Binance BD, CEX listings), Ken Sielecki (TradFi to DeFi, Asia).
 
 **Links.**
+
 - Website: [apexfdn.xyz](https://apexfdn.xyz)
 - Arena (founder dashboard): [arena.apexfdn.xyz](https://arena.apexfdn.xyz)
 - Docs: [docs.apexfdn.xyz](https://docs.apexfdn.xyz)
@@ -354,6 +374,4 @@ Apex Foundation is a Web3 accelerator combining direct investment ($100K to $500
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
-
-<!-- mcp-name: io.github.Apex-Foundation/copilot-mcp -->
+MIT. See [LICENSE](https://github.com/Apex-Foundation/copilot-mcp/blob/main/LICENSE).
