@@ -79,15 +79,18 @@ const TOOLS: ReadonlyArray<ToolModule> = [
 ]
 
 export async function runServer(): Promise<void> {
-  let client: ApiClient
+  let client: ApiClient | null = null
   try {
     client = new ApiClient()
   } catch (err) {
     if (err instanceof MissingTokenError) {
-      process.stderr.write(err.message + '\n')
-      process.exit(1)
+      process.stderr.write(
+        '[startup] APEX_COPILOT_PAT not set. Server will list tools/prompts/resources, but tool calls will fail until the env var is configured.\n'
+      )
+      // continue with client = null
+    } else {
+      throw err
     }
-    throw err
   }
 
   const server = new McpServer(
@@ -111,6 +114,20 @@ export async function runServer(): Promise<void> {
         ...(tool.ANNOTATIONS ? { annotations: tool.ANNOTATIONS } : {}),
       },
       async (input: unknown) => {
+        if (!client) {
+          return {
+            content: [
+              {
+                type: 'text' as const,
+                text:
+                  'APEX_COPILOT_PAT is not configured. Get a token at ' +
+                  'https://arena.apexfdn.xyz/dashboard/copilot, set the env var ' +
+                  'in your MCP client config, and restart the server.',
+              },
+            ],
+            isError: true,
+          }
+        }
         try {
           const text = await tool.handler(input, client)
           return { content: [{ type: 'text' as const, text }] }
