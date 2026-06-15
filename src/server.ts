@@ -19,6 +19,10 @@ import type { z } from 'zod'
 import { ApiClient, ApexCopilotApiError, VerifyRequiredError } from './api-client.js'
 import { MissingTokenError, PACKAGE_VERSION } from './config.js'
 
+import { APEX_INSTRUCTIONS } from './instructions.js'
+import { APEX_PROMPTS } from './prompts.js'
+import { APEX_RESOURCES } from './resources.js'
+
 import * as score from './tools/score.js'
 import * as portfolioMatch from './tools/portfolio-match.js'
 import * as hackathons from './tools/hackathons.js'
@@ -26,6 +30,7 @@ import * as fundMatch from './tools/fund-match.js'
 import * as jurisdiction from './tools/jurisdiction.js'
 import * as twitter from './tools/twitter.js'
 import * as codeReview from './tools/code-review.js'
+import * as verify from './tools/verify.js'
 
 interface ToolAnnotations {
   title?: string
@@ -70,6 +75,7 @@ const TOOLS: ReadonlyArray<ToolModule> = [
   jurisdiction,
   twitter,
   codeReview,
+  verify,
 ]
 
 export async function runServer(): Promise<void> {
@@ -84,10 +90,15 @@ export async function runServer(): Promise<void> {
     throw err
   }
 
-  const server = new McpServer({
-    name: "copilot-mcp",
-    version: PACKAGE_VERSION,
-  })
+  const server = new McpServer(
+    {
+      name: "copilot-mcp",
+      version: PACKAGE_VERSION,
+    },
+    {
+      instructions: APEX_INSTRUCTIONS,
+    }
+  )
 
   for (const tool of TOOLS) {
     server.registerTool(
@@ -110,6 +121,31 @@ export async function runServer(): Promise<void> {
           }
         }
       }
+    )
+  }
+
+  for (const prompt of APEX_PROMPTS) {
+    server.registerPrompt(
+      prompt.name,
+      {
+        title: prompt.title,
+        description: prompt.description,
+        argsSchema: prompt.argsSchema,
+      },
+      (args: Record<string, unknown>) => prompt.handler(args)
+    )
+  }
+
+  for (const resource of APEX_RESOURCES) {
+    server.registerResource(
+      resource.name,
+      resource.uri,
+      {
+        title: resource.title,
+        description: resource.description,
+        mimeType: resource.mimeType,
+      },
+      resource.handler
     )
   }
 

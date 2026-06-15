@@ -1,6 +1,6 @@
 {
   "name": "@apexfdn/copilot-mcp",
-  "version": "0.9.0",
+  "version": "0.11.0",
   "mcpName": "io.github.Apex-Foundation/copilot-mcp",
   "description": "Apex Copilot — MCP server for Apex Foundation portfolio diligence and operator tools.",
   "license": "MIT",
