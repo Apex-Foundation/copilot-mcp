@@ -130,7 +130,25 @@ export async function runServer(): Promise<void> {
         }
         try {
           const text = await tool.handler(input, client)
-          return { content: [{ type: 'text' as const, text }] }
+          const result: {
+            [x: string]: unknown
+            content: Array<{ type: 'text'; text: string }>
+            structuredContent?: { [key: string]: unknown }
+          } = {
+            content: [{ type: 'text' as const, text }],
+          }
+          if (tool.OUTPUT_SHAPE) {
+            try {
+              const parsed: unknown = JSON.parse(text)
+              if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+                result.structuredContent = parsed as { [key: string]: unknown }
+              }
+            } catch {
+              // Handler returned non-JSON despite declaring OUTPUT_SHAPE.
+              // Omit structuredContent — clients still receive text content.
+            }
+          }
+          return result
         } catch (err) {
           return {
             content: [{ type: 'text' as const, text: formatError(err) }],
