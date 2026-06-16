@@ -35,7 +35,7 @@ https://github.com/Apex-Foundation/copilot-mcp/blob/main/SKILL.md
 
 const APEX_ABOUT_MARKDOWN = `# Apex Foundation
 
-Apex Foundation is a Web3 accelerator combining direct investment ($100K to $500K, up to $2M via SPV) with operational service delivery across the Apex portfolio. RWA Campaign active March through May 2026.
+Apex Foundation is a Web3 accelerator combining direct investment ($100K to $500K, up to $2M via SPV) with operational service delivery across 200+ portfolio projects. RWA Campaign active March through May 2026.
 
 ## Programs
 
@@ -48,7 +48,7 @@ Apex Foundation is a Web3 accelerator combining direct investment ($100K to $500
 
 ## Portfolio scale
 
-- Apex portfolio across all completed programs
+- 200+ active companies across all completed programs
 - $124M+ raised across portfolio
 - 8.4x average ROI on exited positions
 - $127M+ OTC volume facilitated through Fibonacci (independent HFT and market-maker partner)
@@ -179,7 +179,7 @@ export const APEX_RESOURCES: ReadonlyArray<ApexResourceDefinition> = [
     uri: 'apex://about',
     title: 'About Apex Foundation',
     description:
-      'Apex Foundation overview: programs, Apex portfolio, advisor network, investment vehicles, links.',
+      'Apex Foundation overview: programs, 200+ portfolio companies, advisor network, investment vehicles, links.',
     mimeType: 'text/markdown',
     handler: textResource('text/markdown', APEX_ABOUT_MARKDOWN),
   },
