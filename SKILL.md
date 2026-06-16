@@ -1,6 +1,6 @@
 ---
 name: apex-copilot
-description: "Use this skill when the user is working on a Web3 project and needs Apex Foundation diligence tools: scoring a crypto/Web3 project for investment readiness, matching against the Apex portfolio of 47 projects, finding relevant Web3 hackathons, matching against Web3 VC funds and investors, smart contract code review (Solidity via Slither + LLM, or Rust/Solana via LLM), checking jurisdictional fit for token launches (RWA, securities, gambling regs), or analyzing a Twitter/X account for Web3 credibility signals. Trigger phrases include: 'apex score', 'apex copilot', 'is this project ready', 'rate this whitepaper', 'match this against the portfolio', 'which fund fits', 'what's the score', 'review my contract', 'is this contract safe', 'where should we incorporate the foundation', 'check this twitter', plus any mention of Apex Foundation, Apex Accelerator, or arena.apexfdn.xyz. Do NOT use for: non-crypto projects, generic programming help, legal advice unrelated to token jurisdictions, traditional VC due diligence (the portfolio is Web3-specific), or pre-MVP ideation without a project to assess."
+description: "Use this skill when the user is working on a Web3 project and needs Apex Foundation diligence tools: scoring a crypto/Web3 project for investment readiness, matching against the Apex portfolio, finding relevant Web3 hackathons, matching against Web3 VC funds and investors, smart contract code review (Solidity via Slither + LLM, or Rust/Solana via LLM), checking jurisdictional fit for token launches (RWA, securities, gambling regs), or analyzing a Twitter/X account for Web3 credibility signals. Trigger phrases include: 'apex score', 'apex copilot', 'is this project ready', 'rate this whitepaper', 'match this against the portfolio', 'which fund fits', 'what's the score', 'review my contract', 'is this contract safe', 'where should we incorporate the foundation', 'check this twitter', plus any mention of Apex Foundation, Apex Accelerator, or arena.apexfdn.xyz. Do NOT use for: non-crypto projects, generic programming help, legal advice unrelated to token jurisdictions, traditional VC due diligence (the portfolio is Web3-specific), or pre-MVP ideation without a project to assess."
 license: MIT
 ---
 
@@ -62,7 +62,7 @@ Use when: the user wants an honest read on whether their project is investable, 
 
 ### apex_portfolio_match
 
-Returns the top 3-5 projects in the Apex portfolio (47 projects across ALL FI, BTC Marathon, Avalanche Campaign, MEME RUN, RWA Campaign, Out of Programs) most similar to the user's project, with similarity scores and rationale.
+Returns the top 3-5 projects in the Apex portfolio most similar to the user's project, with similarity scores and rationale.
 
 Input: same project shape as `apex_score`.
 

@@ -148,7 +148,7 @@ After matching:
     name: 'match-portfolio',
     title: 'Compare against the Apex portfolio',
     description:
-      'Find the most similar projects in the Apex portfolio (47 companies across ALL FI, BTC Marathon, Avalanche Campaign, MEME RUN, RWA Campaign, Out of Programs).',
+      'Find the most similar projects in the Apex portfolio across all programs.',
     argsSchema: {
       projectName: z.string().describe('Project name'),
       description: z

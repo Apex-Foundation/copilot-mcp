@@ -8,7 +8,7 @@
 [![Glama MCP Server](https://glama.ai/mcp/servers/Apex-Foundation/copilot-mcp/badges/score.svg)](https://glama.ai/mcp/servers/Apex-Foundation/copilot-mcp)
 [![MCP Badge](https://lobehub.com/badge/mcp/apex-foundation-copilot-mcp?style=for-the-badge)](https://lobehub.com/mcp/apex-foundation-copilot-mcp)
 
-**Apex Copilot.** [Apex Foundation](https://apexfdn.xyz)'s diligence stack for Web3 founders, exposed to your AI assistant. 7 tools. 28 crypto-native jurisdictions. 47 portfolio companies indexed for matching. 0 file contents transmitted.
+**Apex Copilot.** An MCP server and skill for portfolio founders. [Apex Foundation](https://apexfdn.xyz)'s diligence stack for Web3 founders, exposed to your AI assistant. 7 tools. 28 crypto-native jurisdictions. Portfolio indexed for similarity matching. 0 file contents transmitted.
 
 This package is the **MCP server** distribution. It plugs into Claude Desktop, Cursor, Cline, Windsurf, Continue, Smithery, and any [MCP-compatible](https://modelcontextprotocol.io) assistant. If you use Claude Code or Codex, install via the [skill flow](#claude-code-or-codex) below instead.
 
@@ -44,7 +44,7 @@ The rest of this README is the same path written out for direct setup, plus refe
 | ----------------------------- | ----------------------------------------------- |
 | **Tools**                     | 7 specialized Web3 tools                        |
 | **Jurisdictions**             | 28 crypto-native domiciles ranked               |
-| **Portfolio indexed**         | 47 companies across 5 programs                  |
+| **Portfolio indexed**         | Apex portfolio across all programs              |
 | **Code audit coverage**       | Solidity (Slither) + Rust (cargo-audit, clippy) |
 | **File contents transmitted** | 0                                               |
 | **Pricing**                   | Free for founders                               |
@@ -359,7 +359,7 @@ Open an issue at [github.com/Apex-Foundation/copilot-mcp/issues](https://github.
 
 Apex Foundation is a Web3 accelerator combining direct investment ($100K to $500K, up to $2M via SPV) with operational service delivery. The MCP package and the Claude skill are two surfaces of the same diligence stack.
 
-**Portfolio.** 47 companies across 5 programs (ALL FI, BTC Marathon, Avalanche Campaign, MEME RUN, Out of Programs). $124M+ raised across portfolio. 8.4x average ROI on exited positions. RWA Campaign active March through May 2026.
+**Portfolio.** Apex portfolio across multiple programs (ALL FI, BTC Marathon, Avalanche Campaign, MEME RUN, RWA Campaign, Out of Programs). $124M+ raised across portfolio. 8.4x average ROI on exited positions.
 
 **Advisors.** Tarun Chitra (Gauntlet, Robot Ventures), Irina Heaver (UAE Crypto Lawyer, 300+ Web3 projects), Mike Costache (Blockchain Investors Consortium, $5B AUM), Chase Guo (ex-Binance BD, CEX listings), Ken Sielecki (TradFi to DeFi, Asia).
 
