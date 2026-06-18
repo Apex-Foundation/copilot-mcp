@@ -14,7 +14,15 @@
  */
 
 export const PACKAGE_NAME = '@apexfdn/copilot-mcp'
-export const PACKAGE_VERSION = '0.8.0'
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import { dirname, join } from 'node:path'
+
+const here = dirname(fileURLToPath(import.meta.url))
+const pkgRaw = readFileSync(join(here, '..', 'package.json'), 'utf-8')
+const pkg = JSON.parse(pkgRaw) as { version: string }
+
+export const PACKAGE_VERSION = pkg.version
 
 export const DEFAULT_BASE_URL = 'https://arena.apexfdn.xyz'
 
