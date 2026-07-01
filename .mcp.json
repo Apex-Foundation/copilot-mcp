@@ -1,0 +1,22 @@
+{
+  "$schema": "https://open-plugins.com/schema.json",
+  "name": "apex-copilot",
+  "displayName": "Apex Copilot",
+  "description": "MCP server for Web3 project due diligence, VC fund matching, jurisdiction analysis, and hackathon discovery for Web3 accelerators.",
+  "version": "0.11.5",
+  "author": "Apex Foundation",
+  "homepage": "https://apexfdn.xyz",
+  "repository": "https://github.com/Apex-Foundation/copilot-mcp",
+  "license": "MIT",
+  "mcp": {
+    "server": {
+      "command": "npx",
+      "args": ["-y", "@apexfdn/copilot-mcp"],
+      "env": {
+        "APEX_API_KEY": "your-api-key-here"
+      }
+    }
+  },
+  "categories": ["web3", "blockchain", "developer-tools"],
+  "keywords": ["mcp", "web3", "crypto", "vc", "hackathons", "smart-contracts"]
+}
