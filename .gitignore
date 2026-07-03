@@ -7,3 +7,15 @@ dist/
 *.tgz
 .vscode/
 .idea/
+# Backups and leftover artifacts
+*.before-*
+*.backup
+.backups/
+.apex-patch-backups/
+# Binaries that should not be in the repo
+mcp-publisher
+# Case-insensitive filesystem collision
+/skill.md
+# OS / editor cruft
+Thumbs.db
+*.tsbuildinfo

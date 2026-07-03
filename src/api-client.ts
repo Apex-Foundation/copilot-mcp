@@ -92,21 +92,46 @@ export class ApiClient {
       init.body = JSON.stringify(body)
     }
 
+    // 30s timeout via AbortController. Composes with caller's opts.signal.
+    const timeoutCtl = new AbortController()
+    const timeoutId = setTimeout(() => timeoutCtl.abort(), 30_000)
+    const combinedSignal = opts.signal
+      ? anySignal(opts.signal, timeoutCtl.signal)
+      : timeoutCtl.signal
+    init.signal = combinedSignal
+
     let res: Response
     try {
       res = await fetch(url, init)
     } catch (err) {
+      clearTimeout(timeoutId)
       const msg = err instanceof Error ? err.message : String(err)
-      throw new ApexCopilotApiError(0, 'network_error', `Network error reaching ${url}: ${msg}`)
+      const code = timeoutCtl.signal.aborted ? 'timeout' : 'network_error'
+      throw new ApexCopilotApiError(0, code, `Network error reaching ${url}: ${msg}`)
     }
+    clearTimeout(timeoutId)
 
-    // One soft retry on transient server errors / rate limit
-    if ((res.status === 429 || res.status >= 500) && method === 'GET') {
+    // One soft retry on transient server errors.
+    // - 5xx: retry both GET and POST (our POSTs are idempotent within seconds)
+    // - 429: retry only GET (POST 429 means real rate limit, back off to caller)
+    const shouldRetry =
+      res.status >= 500 ||
+      (res.status === 429 && method === 'GET')
+    if (shouldRetry) {
       await sleep(750)
+      // Fresh AbortController for retry
+      const retryCtl = new AbortController()
+      const retryTimeoutId = setTimeout(() => retryCtl.abort(), 30_000)
+      const retrySignal = opts.signal
+        ? anySignal(opts.signal, retryCtl.signal)
+        : retryCtl.signal
+      init.signal = retrySignal
       try {
         res = await fetch(url, init)
       } catch {
         /* fall through with original res */
+      } finally {
+        clearTimeout(retryTimeoutId)
       }
     }
 
@@ -159,4 +184,19 @@ export class ApiClient {
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+/**
+ * Combine multiple AbortSignals into one that aborts when any input aborts.
+ */
+function anySignal(...signals: AbortSignal[]): AbortSignal {
+  const ctl = new AbortController()
+  for (const s of signals) {
+    if (s.aborted) {
+      ctl.abort()
+      return ctl.signal
+    }
+    s.addEventListener('abort', () => ctl.abort(), { once: true })
+  }
+  return ctl.signal
 }

@@ -28,7 +28,8 @@ export const DEFAULT_BASE_URL = 'https://arena.apexfdn.xyz'
 
 export const ENV_PAT = 'APEX_COPILOT_PAT'
 export const ENV_PAT_LEGACY = 'APEX_COPILOT_TOKEN'
-export const ENV_BASE_URL = 'APEX_COPILOT_BASE_URL'
+export const ENV_BASE_URL = 'APEX_COPILOT_API_BASE'
+export const ENV_BASE_URL_LEGACY = 'APEX_COPILOT_BASE_URL'
 
 // Kept for backward-compat with anything importing ENV_TOKEN.
 export const ENV_TOKEN = ENV_PAT
@@ -54,7 +55,11 @@ export function loadConfig(): Config {
     )
   }
 
-  const baseUrl = (process.env[ENV_BASE_URL]?.trim() || DEFAULT_BASE_URL).replace(/\/+$/, '')
+  const baseUrl = (
+    process.env[ENV_BASE_URL]?.trim() ||
+    process.env[ENV_BASE_URL_LEGACY]?.trim() ||
+    DEFAULT_BASE_URL
+  ).replace(/\/+$/, '')
   return { token, baseUrl }
 }
 

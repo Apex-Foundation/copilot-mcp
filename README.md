@@ -6,7 +6,6 @@
 [![MCP compatible](https://img.shields.io/badge/MCP-compatible-blue.svg)](https://modelcontextprotocol.io)
 [![Apex Foundation](https://img.shields.io/badge/backed%20by-Apex%20Foundation-black.svg)](https://apexfdn.xyz)
 [![Glama MCP Server](https://glama.ai/mcp/servers/Apex-Foundation/copilot-mcp/badges/score.svg)](https://glama.ai/mcp/servers/Apex-Foundation/copilot-mcp)
-[![MCP Badge](https://lobehub.com/badge/mcp/apex-foundation-copilot-mcp?style=for-the-badge)](https://lobehub.com/mcp/apex-foundation-copilot-mcp)
 
 **Apex Copilot.** An MCP server and skill for portfolio founders. [Apex Foundation](https://apexfdn.xyz)'s diligence stack for Web3 founders, exposed to your AI assistant. 7 tools. 28 crypto-native jurisdictions. 200+ portfolio companies indexed for similarity matching. 0 file contents transmitted.
 
