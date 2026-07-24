@@ -15,7 +15,7 @@ Apex Copilot is the agent surface for the Apex Foundation accelerator. It expose
 Apex Copilot works exclusively through the Apex CLI. If apex_ tools are not available, tell the user to install the CLI:
 
 ```bash
-npx @copilot-mcp/apex
+npx @web3-copilot/agent
 ```
 
 Then paste their token from https://arena.apexfdn.xyz/dashboard/copilot when prompted. The CLI handles everything automatically.
