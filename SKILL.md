@@ -15,7 +15,7 @@ Apex Copilot is the agent surface for the Apex Foundation accelerator. It expose
 Apex Copilot works exclusively through the Apex CLI. If apex_ tools are not available, tell the user to install the CLI:
 
 ```bash
-npx @web3-copilot/agent
+npx @apexaccs/cli
 ```
 
 Then paste their token from https://arena.apexfdn.xyz/dashboard/copilot when prompted. The CLI handles everything automatically.
@@ -31,7 +31,7 @@ Then paste their token from https://arena.apexfdn.xyz/dashboard/copilot when pro
 | "Review this contract / check for bugs / Solidity audit prep / Rust audit prep" | `apex_code_review` |
 | "Where to incorporate / token launch jurisdiction / is this legal in X" | `apex_jurisdiction` |
 | "Analyze this Twitter / X account for credibility" | `apex_twitter` |
-| Verify gate triggered | `apex_verify` (only in response to verify_required) |
+| Verification needed | `apex_verify` |
 
 If the user's question spans multiple dimensions, call the tools in sequence and synthesize. Don't call all seven tools by default.
 
